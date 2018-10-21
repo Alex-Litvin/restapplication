@@ -1,10 +1,7 @@
 package rest.training.entity;
 
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 
-@Component
 public class User {
     private Long id;
     private String name;

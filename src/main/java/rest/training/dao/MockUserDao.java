@@ -1,6 +1,5 @@
 package rest.training.dao;
 
-import org.springframework.stereotype.Repository;
 import rest.training.entity.Project;
 import rest.training.entity.User;
 
@@ -10,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Repository
 public class MockUserDao implements UserDao {
     private static List<User> users = new ArrayList<>();
     private static final AtomicLong userId = new AtomicLong();

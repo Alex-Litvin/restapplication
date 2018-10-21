@@ -7,4 +7,14 @@
     <mvc:annotation-driven />
     <context:component-scan base-package="rest.training" />
 
+    <bean id="user" class="rest.training.entity.User"/>
+    <bean id="project" class="rest.training.entity.Project"/>
+    <bean id="mockUserDao" class="rest.training.dao.MockUserDao"/>
+    <bean id="userService" class="rest.training.service.UserServiceImpl">
+        <constructor-arg ref="mockUserDao"/>
+    </bean>
+    <bean id="userController" class="rest.training.controller.UserController">
+        <constructor-arg ref="userService"/>
+    </bean>
+
 </beans>

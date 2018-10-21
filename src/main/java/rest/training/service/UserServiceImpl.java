@@ -1,14 +1,12 @@
 package rest.training.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import rest.training.dao.UserDao;
 import rest.training.entity.User;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
 public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
