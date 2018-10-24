@@ -19,7 +19,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/user/", method = RequestMethod.POST)
+    @PostMapping(value = "/users/")
     ResponseEntity<User> create(@RequestBody User user, UriComponentsBuilder ucBuilder) {
         Optional<User> currentUser = userService.findById(user.getId());
         if (currentUser.isPresent()) {
@@ -31,7 +31,7 @@ public class UserController {
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/users/{id}")
     ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user) {
         Optional<User> currentUser = userService.findById(id);
         if (currentUser.isPresent()) {
@@ -43,10 +43,9 @@ public class UserController {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
     }
 
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/users/{id}")
     ResponseEntity<User> deleteById(@PathVariable Long id) {
         Optional<User> currentUser = userService.findById(id);
         if (currentUser.isPresent()) {
@@ -56,27 +55,23 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/users/{id}")
     ResponseEntity<User> findById(@PathVariable Long id) {
-        Optional<User> currentUser = userService.findById(id);
-        return currentUser.map(user -> new ResponseEntity<>(user, HttpStatus.OK))
+        return userService.findById(id)
+                .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
 
-    @RequestMapping(value = "/user/", method = RequestMethod.GET)
+    @GetMapping(value = "/users/")
     ResponseEntity<User> findByName(@RequestParam(value = "name") String name) {
-        Optional<User> currentUser = userService.findByName(name);
-        return currentUser.map(user -> new ResponseEntity<>(user, HttpStatus.OK))
+        return userService.findByName(name)
+                .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
 
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @GetMapping(value = "/users")
     ResponseEntity<List<User>> findAll() {
-        List<User> users = userService.findAll();
-        if (users.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 }

@@ -13,8 +13,5 @@
     <bean id="userService" class="rest.training.service.UserServiceImpl">
         <constructor-arg ref="mockUserDao"/>
     </bean>
-    <bean id="userController" class="rest.training.controller.UserController">
-        <constructor-arg ref="userService"/>
-    </bean>
 
 </beans>
